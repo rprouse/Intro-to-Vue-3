@@ -39,6 +39,7 @@ app.component('product-display', {
             v-on:click="addToCart">
             Add to Cart
           </button>
+
         </div>
       </div>
     </div>`,
@@ -70,7 +71,7 @@ app.component('product-display', {
       return this.variants[this.selectedVariant].image;
     },
     inStock() {
-      return this.variants[this.selectedVariant].quantity;
+      return this.variants[this.selectedVariant].quantity >0;
     },
     shipping() {
       if (this.premium) {
