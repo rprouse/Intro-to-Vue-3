@@ -1,9 +1,16 @@
 const app = Vue.createApp({
   data() {
     return {
-      cart: 0,
-      premium: true,
+      cart: [],
+      premium: true
     }
   },
-  methods: {}
-});
+  methods: {
+    updateCart(item) {
+      if(item.quantity > 0) {
+        this.cart.push(item.id);
+        item.quantity--;
+      }
+    }
+  }
+})
