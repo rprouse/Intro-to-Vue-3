@@ -14,7 +14,10 @@ const app = Vue.createApp({
     },
     methods: {
       addToCart() {
-        this.cart += 1;
+        if(this.inventory > 0) {
+          this.cart += 1;
+          this.inventory -= 1;
+        }
       },
       updateImage(image) {
         this.image = image;
