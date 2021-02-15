@@ -38,6 +38,8 @@ app.component('product-display', {
             Add to Cart
           </button>
 
+          <review-list :reviews="reviews" v-if="reviews.length"></review-list>
+          <review-form @add-review="addReview"></review-form>
         </div>
       </div>
     </div>`,
@@ -47,6 +49,7 @@ app.component('product-display', {
       brand: 'Vue Mastery',
       selectedVariant: 0,
       details: ['50% cotton', '30% wool', '20% polyester'],
+      reviews: [],
       variants: [
         { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 12 },
         { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 3 },
@@ -59,6 +62,9 @@ app.component('product-display', {
     },
     updateVariant(index) {
       this.selectedVariant = index;
+    },
+    addReview(review) {
+      this.reviews.push(review);
     }
   },
   computed: {
@@ -69,7 +75,7 @@ app.component('product-display', {
       return this.variants[this.selectedVariant].image;
     },
     inStock() {
-      return this.variants[this.selectedVariant].quantity >0;
+      return this.variants[this.selectedVariant].quantity;
     },
     shipping() {
       if (this.premium) {
