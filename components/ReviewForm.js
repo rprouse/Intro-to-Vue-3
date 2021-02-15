@@ -3,6 +3,7 @@ app.component('review-form', {
   /*html*/`
   <form class="review-form" @submit.prevent="onSubmit">
     <h3>leave a review</h3>
+
     <label for="name">Name:</label>
     <input id="name" v-model="name" />
 
@@ -18,18 +19,26 @@ app.component('review-form', {
       <option>1</option>
     </select>
 
+    <p v-if="error !== ''" style="color: red;">{{ error }}</p>
+
     <input class="button" type="submit" value="Submit" />
+
   </form>
   `,
   data() {
     return {
       name: '',
       review: '',
-      rating: null
+      rating: null,
+      error: ''
     };
   },
   methods: {
     onSubmit() {
+      if(this.name === '' || this.review === '' || this.rating === null) {
+        this.error = 'Please fill in every field!';
+        return;
+      }
       let review = {
         name: this.name,
         review: this.review,
@@ -38,7 +47,8 @@ app.component('review-form', {
       this.$emit('add-review', review);
       this.name = '';
       this.review = '';
-      this.rating = null
+      this.rating = null;
+      this.error = '';
     }
   }
 });
